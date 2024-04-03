@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const session = require("express-session");
-const db = add your url here
+const db = 'mongodb+srv://jatinsahijwanidev:Jatin1234@cluster0.iu2oqjw.mongodb.net/?retryWrites=true&w=majority'
 const Admin = require("../model/adminSchema");
 const requireAdminLogin = async(req, res, next) => {
   try {
@@ -51,6 +51,14 @@ router.post("/adminlogin", async (req, res) => {
     res.status(500).send({ success: false, message: `Login Error : ${err}` });
   }
 });
+
+router.post('/adminregister',async(req,res) => {
+  const { email, password } = req.body;
+  const json = {email,password};
+  const newAdmin = new Admin(json);
+  await newAdmin.save();
+  return res.json({message: 'Admin Register Successful'});
+})
 
 router.get('/admin-auth', requireAdminLogin , (req,res) => {
   res.status(200).send({ok:true})

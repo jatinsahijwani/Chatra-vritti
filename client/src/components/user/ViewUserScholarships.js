@@ -26,6 +26,7 @@ const ViewUserScholarships = () => {
           `http://localhost:8080/get-scholarships`
         );
         setScholarship(data.scholarship);
+        console.log(data.scholarship);
         
       } catch (error) {
         console.log(error);
